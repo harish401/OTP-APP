@@ -9,25 +9,7 @@ import OTPScreen from './screens/OTPScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [isValid, setIsValid] = useState(false);
 
-  const handleInputChange = (text) => {
-    setInputValue(text);
-    setIsValid(validateInput(text));
-  };
-
-  const validateInput = (text) => {
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const isEmail = regex.test(text);
-    const isMobile = text.length === 10 && !isNaN(text);
-    return isEmail || isMobile;
-  };
-
-  const handlePress = () => {
-    setInputValue('');
-    setIsValid(false);
-  };
 
   return (
     <NavigationContainer>
@@ -35,21 +17,21 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'Mobile/Email List' }}
+          options={{headerShown:false }}
         >
           
         </Stack.Screen>
         <Stack.Screen
           name="OTP"
           component={OTPScreen}
-          options={{ title: 'Mobile/Email List' }}
+          options={{ headerShown:true }}
         >
           
         </Stack.Screen>
         <Stack.Screen
           name="Table"
           component={TableScreen}
-          options={{ title: 'Mobile/Email List' }}
+          options={{ headerShown:true,title:'Mobile Number list' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
