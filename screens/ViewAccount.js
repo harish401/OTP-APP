@@ -41,7 +41,7 @@ export default function ViewEnquiry({ route }) {
   }, [item.messages]);
   const getMessages = () => {
     fetch(
-      `https://f7g0y9alkg.execute-api.ca-central-1.amazonaws.com/dev/accounts/${item.id}/message`
+      `https://api.speech4all.com/admin/accounts/${item.id}/message`
     )
       .then((response) => {
         if (!response.ok) {
@@ -83,7 +83,7 @@ export default function ViewEnquiry({ route }) {
   // };
   const handleChange = (newStatus) => {
     setIsLoading(true);
-    fetch(`https://f7g0y9alkg.execute-api.ca-central-1.amazonaws.com/dev/accounts/${item.id}?status=${newStatus}`, {
+    fetch(`https://api.speech4all.com/admin/accounts/${item.id}?status=${newStatus}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: newStatus })

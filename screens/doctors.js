@@ -152,7 +152,7 @@ export default function Doctors({navigation}) {
   const [expandedItemId, setExpandedItemId] = useState(true);
 
     const renderItem = ({ item }) => (
-      <TouchableOpacity  onPress={() => navigation.navigate('ViewAccount',{ item })} style={styles.itemContainer}>
+      <TouchableOpacity  onPress={() => navigation.navigate('EditDoctors',{ item })} style={styles.itemContainer}>
           
       <NeumorphicView>
       <View style={styles.neomorph}>
@@ -166,8 +166,7 @@ export default function Doctors({navigation}) {
       <Text style={{marginLeft:10,color:'#07b6ff',marginBottom:20}}>{' '}{item.emailID}</Text>
         <View style={{flexDirection:"row",justifyContent:"center",alignItems:'center',padding:5}}>
         <TouchableOpacity onPress={() => {
-          setIsExpanded(isExpanded === item.id ? null : item.id);
-          setExpandedItemId(item.id);
+        navigation.navigate()
         }} style={{backgroundColor:"#07b6ff",padding:7,borderRadius:10,elevation:2}} > 
           <Text style={{color:"white"}}>{'    '}Edit{'   '} </Text>
           {/* <View style={{ justifyContent: "flex-end", alignItems: 'flex-end', flex: 1 }}>
@@ -237,7 +236,7 @@ export default function Doctors({navigation}) {
        <NeumorphicHeader title={"Doctors"} 
          right={
          
-          <TouchableOpacity onPress={() =>navigation.navigate('ViewDoctors')} >
+          <TouchableOpacity onPress={() =>navigation.navigate('ViewDoctors',{filteredDataSource})} >
           <View style={{backgroundColor:'white',padding:10,width:100,borderRadius:10,elevation:15}}>
   <NeumorphicText style={{color:'#07b6ff'}}>Add doctor</NeumorphicText>
           </View>

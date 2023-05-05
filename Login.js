@@ -17,7 +17,7 @@ const Login = ({navigation}) => {
   const opacity = useMemo(() => new Animated.Value(0), []);
   const handleLogin = async () => {
     // Check if the username and password are correct
-    if (username === 'speech4all@gmail.com' && password === 'admin') {
+    if (username === 'speech4all' && password === 'admin') {
       // Store the user type and username in AsyncStorage
       await AsyncStorage.setItem('userType', 'customer');
       await AsyncStorage.setItem('username', username);

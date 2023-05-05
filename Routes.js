@@ -25,6 +25,7 @@ import SettingsScreen from './screens/Settings';
 import NeumorphicText from './components/Text';
 import Doctors from "./screens/doctors"
 import ViewDoctors from './screens/ViewDoctors';
+import EditDoctors from './screens/EditDoctor';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -113,6 +114,14 @@ export default function Routes() {
            headerShown:false
           }}
           component={ViewDoctors}
+        />
+         <Stack.Screen
+          name="EditDoctors"
+          options={{
+            backBehavior: "history",
+           headerShown:false
+          }}
+          component={EditDoctors}
         />
        
          

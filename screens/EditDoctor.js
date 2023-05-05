@@ -7,8 +7,8 @@ import NeumorphicButton from '../components/NeumorphicButton';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FormatDateCorrect } from '../components/date';
 
-export default function ViewDoctors({route}) {
-  const { filteredDatasource } = route.params;
+export default function EditDoctors({route}) {
+  const { item } = route.params;
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [experience, setExperience] = useState('');
@@ -27,7 +27,49 @@ export default function ViewDoctors({route}) {
   const [startDate, setStartDate] = useState(new Date());
   const [show, setShow] = useState(false);
   
+ 
   
+  useEffect(() => {
+    const fetchDoctorData = async () => {
+        try {
+          const response = await fetch(
+            `https://api.speech4all.com/admin/doctors/${item.id}`
+          );
+          const data = await response.json();
+          console.log(item.firstName)
+          setFirstName(item.firstName);
+          setLastName(item.lastName);
+          setEmailID(item.emailID);
+          setPhoneNumber(item.phoneNumber);
+          setSpecialization(item.specialization);
+          setLocation(item.location);
+          setExperience(item.experience);
+          setHospitalAffiliations(item.hospitalAffiliations);
+          setAvailableDays(item.availableDays);
+          setPincode(parseInt(item.pincode));
+    
+          setStartDate(new Date(item.doctorDOB));
+    
+          item.gender === "male" ? setMaleChecked(true) : setFemaleChecked(true);
+          setBiography(item.biography);
+          setAvailableTime(item.availableTime);
+          setCity(item.city);
+          setIsLoading1(false);
+        } catch (error) {
+          console.error(error);
+          setAlertMessage(error.message || 'Unknown error occurred');
+          setAlertVariant('danger');
+        }
+      };
+    
+      if (item.id) {
+        fetchDoctorData();
+      }
+    console.log(JSON.stringify(item.id));
+    setIsLoading1(true);
+  
+    
+  }, [item.id]);
   const handleSubmit = async (id) => {
     setIsLoading(true);
     try {
@@ -49,8 +91,8 @@ export default function ViewDoctors({route}) {
         pincode: parseInt(pincode),
       };
   
-      const response = await fetch(`https://api.speech4all.com/admin/doctors/`, {
-        method: "POST",
+      const response = await fetch(`https://api.speech4all.com/admin/doctors/${item.id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
@@ -60,25 +102,7 @@ export default function ViewDoctors({route}) {
       setIsLoading(false);
       if (response.status === 200) {
         setAlertMessage('Doctor updated successfully');
-        setAlertVariant('success');
-        setLastName('');
-        setFirstName('');
-        setExperience('');
-        setPhoneNumber(''); 
-        setLocation('');
-        setEmailID('');
-        setAvailableTime('');
-        setAvailableDays('');
-        setSpecialization('');
-        setHospitalAffiliations('');
-        setDoctorDOB('');
-        setGender('');
-        setBiography('');
-        setCity('');
-        setPincode('');
-        setStartDate(new Date());
-        setMaleChecked(false);
-        setFemaleChecked(false);
+       
       } else {
         const message = await response.text();
         setAlertMessage(message);
